@@ -31,8 +31,37 @@ module.exports = function(app,io){
               }); 
             }
         });
-        
-         io.sockets.emit('posts', {'usr':req.body.usr, 'msg':req.body.msg});
+
+
+        var returndata=[];
+
+        var promise = new Promise(function(resolve){
+            var loopcounter = 0
+            message_model.find({}, function(err,posts){
+                posts.forEach(function(post){
+                    loopcounter+=1;   
+                    console.log("POST ", post);
+                    console.log("ERR", err);
+                    returndata.push({'usr': post.usr, 'msg':post.msg});
+                    if (loopcounter === posts.length){
+                        resolve(true);
+                    }
+                });
+            });
+        });
+
+        promise.then(function(resolve){
+            if (resolve) {
+                console.log('returndata ', returndata);
+                io.sockets.emit('posts', returndata);
+            }
+        });
+
+
+
+
+
+//         io.sockets.emit('posts', {'usr':req.body.usr, 'msg':req.body.msg});
     });
 };
 

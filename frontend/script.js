@@ -29,7 +29,14 @@ $(function(){
         var socket = io('http://localhost:8080');
         socket.on('posts', function (data) {
             console.log("socketreturndata: ", data);
-            $('body').append('<p> usr: '+data.usr+' msg: '+data.msg+'</p>')
+            //$('body').append('<p> usr: '+data.usr+' msg: '+data.msg+'</p>')
+            
+            $('.msgs').html(' ');
+
+            data.forEach(function(dot){
+                $(".msgs").append('<p> usr: '+dot.usr+' msg: '+dot.msg+'</p>')
+            })
+
         });
       
     }
