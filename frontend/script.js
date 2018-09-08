@@ -20,6 +20,9 @@ $(function(){
             console.log("first!");
             console.log("postmsgYATA", response);
         });
+        new_message.error(function(err){
+            console.log('there was some error: ', err.error)
+        })
     }
 
     function socketfunk(){

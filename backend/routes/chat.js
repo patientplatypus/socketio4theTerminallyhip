@@ -11,6 +11,8 @@ module.exports = function(app,io){
 
     app.post('/chat', function(req,res){
 
+        console.log('inside /chat')
+
         var newmsg = new message_model({
             usr: req.body.usr,
             msg: req.body.msg
@@ -31,6 +33,7 @@ module.exports = function(app,io){
         });
 
         return message_model.find({}, function(err,posts){
+            console.log('before emitting posts')
             io.sockets.emit('posts', posts);
         });
     });

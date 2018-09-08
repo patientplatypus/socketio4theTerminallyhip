@@ -44,7 +44,8 @@ app.use('/', index);
 var http = require('http');
 var server = http.createServer(app);
 // Pass a http.Server instance to the listen method
-var io = require('socket.io').listen(server);
+// var io = require('socket.io').listen(server);
+var io = require('socket.io')(server, { origins: '*:*'});
 app.use('/static', express.static('node_modules'));
 server.listen(8080);
 chat(app,io);
